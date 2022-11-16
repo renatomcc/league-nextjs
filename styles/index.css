@@ -1,0 +1,22 @@
+body {
+  background: url("../public/images/lolBG.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@font-face {
+  font-family: "Friz-Regular";
+  src: url("../assets/fonts/Friz\ Quadrata\ Regular.ttf");
+}
+
+@font-face {
+  font-family: "Friz-Bold";
+  src: url("../assets/fonts/Friz\ Quadrata\ Bold.otf");
+}
+
+@font-face {
+  font-family: "Friz-Medium";
+  src: url("../assets/fonts/Friz\ Quadrata\ Std\ Medium.otf");
+}
