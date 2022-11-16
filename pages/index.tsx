@@ -6,11 +6,23 @@ import {
   ButtonProps,
   MediaQuery,
 } from "@mantine/core";
+import Head from "next/head";
 import Link from "next/link";
 
 const Home = () => {
   return (
     <>
+      <Head>
+        <title>League of Legends</title>
+        <meta
+          name="keywords"
+          content="leagueoflegends, champions, project, nextjs, mantine, styledcomponents, riotapi"
+        ></meta>
+        <meta
+          name="description"
+          content="league of legends champions project created with next js, mantine, styled components and using the riot games api"
+        ></meta>
+      </Head>
       <MediaQuery largerThan={400} styles={{ paddingTop: "120px" }}>
         <StyledFlex>
           <StyledText> Welcome to my application </StyledText>
@@ -44,7 +56,7 @@ const Home = () => {
               <b style={{ color: "#fbb26d" }}> Styled Components</b>
             </Link>
             <br />
-            Using the 
+            Using the
             <Link
               href="https://developer.riotgames.com"
               target="_blank"
