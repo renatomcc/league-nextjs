@@ -3,45 +3,32 @@ import { ActionIcon, Text } from "@mantine/core";
 import { BsInfoCircle } from "react-icons/bs";
 import getNewName from "../config/getName";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Champion(props: any) {
   let newName = getNewName(props.props.name);
   return (
     <>
-      <StyledCard>
-        <Image
-          src={props.props.image}
-          height={450}
-          width={250}
-          alt={props.props.name}
-        />
-
-        <Text
-          size="xl"
-          color="#c8a355"
-          align="center"
-          weight={500}
-          transform="uppercase"
-          style={{ fontFamily: "Friz-Medium" }}
-        >
-          {props.props.name}
-        </Text>
-        <ActionIcon
-          size="lg"
-          radius="xl"
-          variant="filled"
-          component="a"
-          href={`/champions/${newName}`}
-          style={{
-            position: "absolute",
-            top: "5px",
-            right: "5px",
-            backgroundColor: "transparent",
-          }}
-        >
-          <BsInfoCircle size={30} fill="white" />
-        </ActionIcon>
-      </StyledCard>
+      <Link href={`/champions/${newName}`} style={{ textDecoration: "none" }}>
+        <StyledCard>
+          <Image
+            src={props.props.image}
+            height={450}
+            width={250}
+            alt={props.props.name}
+          />
+          <Text
+            size="xl"
+            color="#c8a355"
+            align="center"
+            weight={500}
+            transform="uppercase"
+            style={{ fontFamily: "Friz-Medium" }}
+          >
+            {props.props.name}
+          </Text>
+        </StyledCard>
+      </Link>
     </>
   );
 }

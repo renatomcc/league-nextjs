@@ -26,27 +26,10 @@ export function Skill(props: any) {
           onClick={() => {
             setSpellTitle(props.props.name);
             setSpellDescription(props.props.description);
-            setSpellModal(true);
+            setSpellModal(!spellModal);
           }}
         />
       </StyledButton>
-      {spellModal && (
-        <Modal
-          lockScroll={false}
-          centered
-          opened={true}
-          onClose={() => setSpellModal(false)}
-          size="auto"
-          overflow="outside"
-          style={{ padding: "0px", backgroundColor: "rgba(0,0,0,0.4)" }}
-          withCloseButton={false}
-        >
-          <Title order={2} align="center">
-            {spellTitle}
-          </Title>
-          <Text>{spellDescription}</Text>
-        </Modal>
-      )}
     </>
   );
 }
@@ -69,5 +52,3 @@ const _StyledButton = styled(Button)`
 const StyledButton = createPolymorphicComponent<"button", ButtonProps>(
   _StyledButton
 );
-
-

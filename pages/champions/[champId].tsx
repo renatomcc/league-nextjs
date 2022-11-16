@@ -22,6 +22,7 @@ import { IChampion } from ".";
 import getNewName from "../../config/getName";
 import styled from "@emotion/styled";
 import Skill from "../../components/SkillCard";
+import { useState } from "react";
 
 export async function getStaticProps({ params }: any) {
   var Champion: IChampion;
@@ -87,6 +88,8 @@ export async function getStaticPaths() {
 }
 
 export default function Champion({ data }: any) {
+  const [spellTitle, setSpellTitle] = useState("");
+  const [spellDescription, setSpellDescription] = useState("");
   return (
     <SimpleGrid>
       <Button
@@ -127,38 +130,75 @@ export default function Champion({ data }: any) {
                     {data.title}
                   </Title>
                   <Group position="center" spacing="xl">
-                    <StyledGroup>
+                    <StyledGroup
+                      onClick={() => {
+                        setSpellDescription(data.passive.description);
+                        setSpellTitle(data.passive.name + " (Passive): ");
+                      }}
+                    >
                       <StyledText>P</StyledText>
                       <Skill props={data.passive} />
                     </StyledGroup>
 
-                    <StyledGroup>
+                    <StyledGroup
+                      onClick={() => {
+                        setSpellDescription(data.skills[0].description);
+                        setSpellTitle(data.skills[0].name + " (Q): ");
+                      }}
+                    >
                       <StyledText>Q</StyledText>
                       <Skill props={data.skills[0]} />
                     </StyledGroup>
 
-                    <StyledGroup>
+                    <StyledGroup
+                      onClick={() => {
+                        setSpellDescription(data.skills[1].description);
+                        setSpellTitle(data.skills[1].name + " (W): ");
+                      }}
+                    >
                       <StyledText>W</StyledText>
                       <Skill props={data.skills[1]} />
                     </StyledGroup>
 
-                    <StyledGroup>
+                    <StyledGroup
+                      onClick={() => {
+                        setSpellDescription(data.skills[2].description);
+                        setSpellTitle(data.skills[2].name + " (E): ");
+                      }}
+                    >
                       <StyledText>E</StyledText>
                       <Skill props={data.skills[2]} />
                     </StyledGroup>
 
-                    <StyledGroup>
+                    <StyledGroup
+                      onClick={() => {
+                        setSpellDescription(data.skills[3].description);
+                        setSpellTitle(data.skills[3].name + " (R): ");
+                      }}
+                    >
                       <StyledText>R</StyledText>
                       <Skill props={data.skills[3]} />
                     </StyledGroup>
+                  </Group>
+                  <Group
+                    style={{
+                      gap: "0px",
+                      padding: "5px",
+                    }}
+                  >
+                    <Text color="#c6a756" weight={800}>
+                      {spellTitle}
+                    </Text>
+                    <Text color="#c6a756" weight={600}>
+                      {spellDescription}
+                    </Text>
                   </Group>
                   <Title
                     order={2}
                     color="#c39031"
                     style={{ fontFamily: "Friz-Regular" }}
                   >
-                    {" "}
-                    Lore:{" "}
+                    Lore:
                   </Title>
                   <Text
                     weight={500}
