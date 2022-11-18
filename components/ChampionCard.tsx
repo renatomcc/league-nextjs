@@ -3,6 +3,7 @@ import { Tooltip, Group, Text, Button } from "@mantine/core";
 import getNewName from "../config/getName";
 import Image from "next/image";
 import Link from "next/link";
+import { getClasses } from "../config/getClasses";
 
 export function Champion(props: any) {
   let newName = getNewName(props.props.name);
@@ -40,8 +41,8 @@ export function Champion(props: any) {
               >
                 <div>
                   <Image
-                    src={`/../public/images/${props.props.tags[0]}.png`}
-                    alt="a"
+                    src={getClasses(props.props.tags[0])}
+                    alt={props.props.tags[0]}
                     width={40}
                     height={40}
                   />
@@ -57,8 +58,8 @@ export function Champion(props: any) {
                 >
                   <div>
                     <Image
-                      src={`/../public/images/${props.props.tags[1]}.png`}
-                      alt="a"
+                      src={getClasses(props.props.tags[1])}
+                      alt={props.props.tags[1]}
                       width={40}
                       height={40}
                     />
