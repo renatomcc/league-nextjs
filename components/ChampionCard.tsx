@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { ActionIcon, Text } from "@mantine/core";
-import { BsInfoCircle } from "react-icons/bs";
+import { Tooltip, Group, Text, Button } from "@mantine/core";
 import getNewName from "../config/getName";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Champion(props: any) {
   let newName = getNewName(props.props.name);
+  console.log(props.props.tags);
   return (
     <>
       <Link href={`/champions/${newName}`} style={{ textDecoration: "none" }}>
@@ -17,16 +17,56 @@ export function Champion(props: any) {
             width={250}
             alt={props.props.name}
           />
-          <Text
-            size="xl"
-            color="#c8a355"
-            align="center"
-            weight={500}
-            transform="uppercase"
-            style={{ fontFamily: "Friz-Medium" }}
-          >
-            {props.props.name}
-          </Text>
+          <StyledGroup className="spells">
+            <Text
+              size="xl"
+              color="#c8a355"
+              align="center"
+              weight={500}
+              transform="uppercase"
+              style={{
+                fontFamily: "Friz-Medium",
+              }}
+            >
+              {props.props.name}
+            </Text>
+            <Group position="center" spacing="xl">
+              <Tooltip
+                label={props.props.tags[0]}
+                color="#b96400"
+                position="top"
+                withArrow
+                arrowSize={10}
+              >
+                <div>
+                  <Image
+                    src={`/../public/images/${props.props.tags[0]}.png`}
+                    alt="a"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+              </Tooltip>
+              {props.props.tags[1] !== "null" ? (
+                <Tooltip
+                  label={props.props.tags[1]}
+                  color="#b96400"
+                  position="top"
+                  withArrow
+                  arrowSize={10}
+                >
+                  <div>
+                    <Image
+                      src={`/../public/images/${props.props.tags[1]}.png`}
+                      alt="a"
+                      width={40}
+                      height={40}
+                    />
+                  </div>
+                </Tooltip>
+              ) : null}
+            </Group>
+          </StyledGroup>
         </StyledCard>
       </Link>
     </>
@@ -34,7 +74,10 @@ export function Champion(props: any) {
 }
 
 const StyledCard = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
   width: 250px;
   height: 485px;
   padding: 0px;
@@ -42,10 +85,20 @@ const StyledCard = styled.div`
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
   border-radius: 3px;
   transition: all linear 0.2s;
-  &:hover {
-    transform: scale(1.05);
+  &:hover .spells {
+    transform: translateY(-60px);
     transition: all linear 0.2s;
   }
+`;
+
+const StyledGroup = styled(Group)`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all linear 0.4s;
+  background-color: black;
+  width: 100%;
+  box-shadow: 0px -5px 5px #000;
 `;
 
 export default Champion;

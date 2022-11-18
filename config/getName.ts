@@ -1,5 +1,4 @@
 export default function getNewName(name: string): string {
-  console.log(name);
   let newName = name
     .replaceAll(" ", "")
     .replaceAll("'", "")

@@ -20,3 +20,8 @@ body {
   font-family: "Friz-Medium";
   src: url("../assets/fonts/Friz\ Quadrata\ Std\ Medium.otf");
 }
+
+.spell-image:hover {
+  transition: all linear 0.2s;
+  transform: scale(1.15);
+}

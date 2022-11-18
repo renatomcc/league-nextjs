@@ -1,9 +1,11 @@
 import {
   Button,
+  ButtonProps,
   Card,
   createPolymorphicComponent,
   Flex,
   Group,
+  keyframes,
   MediaQuery,
   SimpleGrid,
   Text,
@@ -39,28 +41,28 @@ export async function getStaticProps({ params }: any) {
     passive: {
       name: champ.passive.name,
       image: imagePassive + champ.passive.image.full,
-      description: champ.passive.description,
+      description: champ.passive.description.replace(/(<([^>]+)>)/gi, ""),
     },
     skills: [
       {
         name: champ.spells[0].name,
         image: imageSkill + champ.spells[0].id + ".png",
-        description: champ.spells[0].description,
+        description: champ.spells[0].description.replace(/(<([^>]+)>)/gi, ""),
       },
       {
         name: champ.spells[1].name,
         image: imageSkill + champ.spells[1].id + ".png",
-        description: champ.spells[1].description,
+        description: champ.spells[1].description.replace(/(<([^>]+)>)/gi, ""),
       },
       {
         name: champ.spells[2].name,
         image: imageSkill + champ.spells[2].id + ".png",
-        description: champ.spells[2].description,
+        description: champ.spells[2].description.replace(/(<([^>]+)>)/gi, ""),
       },
       {
         name: champ.spells[3].name,
         image: imageSkill + champ.spells[3].id + ".png",
-        description: champ.spells[3].description,
+        description: champ.spells[3].description.replace(/(<([^>]+)>)/gi, ""),
       },
     ],
   };
@@ -90,23 +92,23 @@ export async function getStaticPaths() {
 export default function Champion({ data }: any) {
   const [spellTitle, setSpellTitle] = useState("");
   const [spellDescription, setSpellDescription] = useState("");
+
   return (
     <SimpleGrid>
-      <Button
-        variant="filled"
-        color="orange"
+      <StyledButton
+        variant="gradient"
+        gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
         radius="md"
         size="lg"
         compact
         component="a"
         href="/champions"
-        style={{ width: "80px", fontFamily: "Friz-Regular", color: "black" }}
       >
         Voltar
-      </Button>
+      </StyledButton>
       <MediaQuery
         largerThan={1200}
-        styles={{ width: "1200px", height: "500px" }}
+        styles={{ width: "1200px", height: "550px" }}
       >
         <Card
           withBorder
@@ -163,7 +165,7 @@ export default function Champion({ data }: any) {
                     <StyledGroup
                       onClick={() => {
                         setSpellDescription(data.skills[2].description);
-                        setSpellTitle(data.skills[2].name + " (E): ");
+                        setSpellTitle(data.skills[2].name + " (E):");
                       }}
                     >
                       <StyledText>E</StyledText>
@@ -173,7 +175,7 @@ export default function Champion({ data }: any) {
                     <StyledGroup
                       onClick={() => {
                         setSpellDescription(data.skills[3].description);
-                        setSpellTitle(data.skills[3].name + " (R): ");
+                        setSpellTitle(data.skills[3].name + " (R):");
                       }}
                     >
                       <StyledText>R</StyledText>
@@ -184,14 +186,23 @@ export default function Champion({ data }: any) {
                     style={{
                       gap: "0px",
                       padding: "5px",
+                      flexDirection: "column",
+                      textAlign: "center",
                     }}
                   >
-                    <Text color="#c6a756" weight={800}>
+                    <Title
+                      order={4}
+                      color="white"
+                      style={{
+                        textShadow: "1px 2px 2px black",
+                        fontFamily: "Friz-Regular",
+                      }}
+                    >
                       {spellTitle}
-                    </Text>
-                    <Text color="#c6a756" weight={600}>
+                    </Title>
+                    <SpellDescription color="#c6a756" weight={600}>
                       {spellDescription}
-                    </Text>
+                    </SpellDescription>
                   </Group>
                   <Title
                     order={2}
@@ -235,8 +246,29 @@ const _StyledText = styled(Text)`
 
 const StyledText = createPolymorphicComponent<"text", TextProps>(_StyledText);
 
+const _SpellDescription = styled(Text)`
+  color: #c6a756;
+  text-shadow: 1px 1px 1px black;
+  font-family: Friz-Regular;
+`;
+
+const SpellDescription = createPolymorphicComponent<"text", TextProps>(
+  _SpellDescription
+);
+
 const StyledGroup = styled(Group)`
   display: flex;
   flex-direction: column;
   gap: 0px;
 `;
+
+const _StyledButton = styled(Button)`
+  width: 85px;
+  font-family: Friz-Regular;
+  letter-spacing: 1.2px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+`;
+
+const StyledButton = createPolymorphicComponent<"button", ButtonProps>(
+  _StyledButton
+);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { keyframes } from "@mantine/core";
 
 export const FallbackImage = ({ src, ...rest }) => {
   const [imgSrc, setImgSrc] = useState(src);
@@ -11,15 +12,16 @@ export const FallbackImage = ({ src, ...rest }) => {
   return (
     <Image
       {...rest}
-      src={imgSrc ? imgSrc : "/../public/images/naSpell.png"}
+      src={imgSrc ? imgSrc : "https://i.ibb.co/XsPcjjy/naSpell.png"}
       alt={""}
       onError={() => {
-        setImgSrc("/../public/images/naSpell.png");
+        setImgSrc("https://i.ibb.co/XsPcjjy/naSpell.png");
       }}
       width={65}
       height={65}
-      style={{ borderRadius: "50%" }}
-      className="champions-spell"
+      style={{
+        borderRadius: "50%",
+      }}
     />
   );
 };

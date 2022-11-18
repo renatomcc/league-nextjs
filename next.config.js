@@ -7,6 +7,7 @@ const nextConfig = {
       "logosmarcas.net",
       "ddragon.leagueoflegends.com",
       "cdn-icons-png.flaticon.com",
+      "i.ibb.co",
     ],
   },
 };

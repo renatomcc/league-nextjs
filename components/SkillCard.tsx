@@ -1,33 +1,20 @@
 import styled from "@emotion/styled";
 import {
-  ActionIcon,
   Button,
   ButtonProps,
   createPolymorphicComponent,
-  Modal,
-  Title,
-  Text,
-  TextProps,
+  keyframes,
 } from "@mantine/core";
-import { useState } from "react";
 import { FallbackImage } from "./FallbackImage";
 
 export function Skill(props: any) {
-  const [spellTitle, setSpellTitle] = useState("");
-  const [spellDescription, setSpellDescription] = useState("");
-  const [spellModal, setSpellModal] = useState(false);
   return (
     <>
-      <StyledButton>
+      <StyledButton className="spell-image">
         <FallbackImage
           src={props.props.image}
           alt={props.props.name}
           title={props.props.name}
-          onClick={() => {
-            setSpellTitle(props.props.name);
-            setSpellDescription(props.props.description);
-            setSpellModal(!spellModal);
-          }}
         />
       </StyledButton>
     </>
@@ -43,7 +30,6 @@ const _StyledButton = styled(Button)`
   width: 70px;
   height: 70px;
   padding: 0px;
-  transition: all linear 0.2s;
   &:hover {
     transform: scale(1.15);
   }

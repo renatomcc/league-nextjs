@@ -1,12 +1,14 @@
-import { Button, Flex, SimpleGrid } from "@mantine/core";
+import { Flex, Group, TextInput } from "@mantine/core";
 import Card from "../../components/ChampionCard";
 import { imageChampion, riotAPI } from "../../config/riotapi";
 import getNewName from "../../config/getName";
+import { useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
+import styled from "@emotion/styled";
 
 export async function getStaticProps() {
   var championsStorage: IChampion[] = [];
   const res = await fetch(riotAPI);
-
   const data = await res.json();
 
   Object.values(data.data).map((champ: any) => {
@@ -17,7 +19,7 @@ export async function getStaticProps() {
       image: imageChampion + newName + "_0.jpg",
       description: champ.blurb,
       title: champ.title[0].toUpperCase() + champ.title.slice(1),
-      tags: [],
+      tags: [`${champ.tags[0]}`, `${champ.tags[1] ? champ.tags[1] : null}`],
       passive: null,
       skills: [],
     };
@@ -33,12 +35,36 @@ export async function getStaticProps() {
 }
 
 const Home = ({ data }: any) => {
+  const [searchChampions, setSerachChampions] = useState("");
+  var search: IChampion[] =
+    searchChampions.length > 0
+      ? data.filter((champ: any) =>
+          champ.name
+            .replaceAll("'", "")
+            .toLocaleLowerCase()
+            .includes(searchChampions.replaceAll("'", "").toLowerCase())
+        )
+      : (search = data);
+
   return (
+    <Group
+      style={{ marginTop: "30px", display: "flex", flexDirection: "column" }}
+      position="center"
+      spacing="xl"
+    >
+      <StyledInput
+        icon={<BiSearchAlt2 size={20} />}
+        placeholder="Search Champion"
+        onChange={(e) => {
+          setSerachChampions(e.target.value);
+        }}
+      />
       <Flex gap="xl" justify="center" direction="row" wrap="wrap">
-        {data.map((champion: any) => (
+        {search.map((champion: any) => (
           <Card key={champion.id} props={champion} />
         ))}
       </Flex>
+    </Group>
   );
 };
 
@@ -59,3 +85,17 @@ export interface ISkill {
 }
 
 export default Home;
+
+const StyledInput = styled(TextInput)`
+  border-radius: 5px;
+  input {
+    background-color: #111111;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: Friz-Medium;
+    font-size: 15px;
+    font-style: italic;
+    opacity: 0.8;
+  }
+`;

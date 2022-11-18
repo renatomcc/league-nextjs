@@ -35,7 +35,7 @@ const Home = () => {
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
             >
-              <b style={{ color: "#5800d1" }}> Next JS</b>
+              <b style={{ color: "#812af8" }}> Next JS</b>
             </Link>
             ,
             <Link
@@ -68,7 +68,7 @@ const Home = () => {
           </StyledText>
           <StyledButton
             variant="gradient"
-            gradient={{ from: "#84320b", to: "#d6951b", deg: 10 }}
+            gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
             size="lg"
             component="a"
             href="/champions"
@@ -97,10 +97,11 @@ const StyledText = styled.div`
 `;
 
 const _StyledButton = styled(Button)`
-  color: #fab582;
+  color: #ffdbc0;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-  font-family: Friz-Medium;
+  font-family: Friz-Regular;
   padding: 15px;
+  letter-spacing: 1.2px;
   transition: all linear 0.1s;
   &:hover {
     transform: scale(1.02);
