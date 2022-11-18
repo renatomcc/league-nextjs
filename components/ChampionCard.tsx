@@ -7,7 +7,6 @@ import { getClasses } from "../config/getClasses";
 
 export function Champion(props: any) {
   let newName = getNewName(props.props.name);
-  console.log(props.props.tags);
   return (
     <>
       <Link href={`/champions/${newName}`} style={{ textDecoration: "none" }}>

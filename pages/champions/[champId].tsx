@@ -25,6 +25,7 @@ import getNewName from "../../config/getName";
 import styled from "@emotion/styled";
 import Skill from "../../components/SkillCard";
 import { useState } from "react";
+import { Router } from "next/router";
 
 export async function getStaticProps({ params }: any) {
   var Champion: IChampion;
@@ -92,6 +93,21 @@ export async function getStaticPaths() {
 export default function Champion({ data }: any) {
   const [spellTitle, setSpellTitle] = useState("");
   const [spellDescription, setSpellDescription] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  Router.events.on("routeChangeStart", () => {
+    console.log("loading...");
+    setLoading(true);
+  });
+
+  Router.events.on("routeChangeComplete", () => {
+    console.log("loading done");
+    setLoading(false);
+  });
+
+  Router.events.on("hashChangeComplete", () => {
+    console.log("a");
+  });
 
   return (
     <SimpleGrid>

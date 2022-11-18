@@ -1,10 +1,11 @@
-import { Flex, Group, TextInput } from "@mantine/core";
-import Card from "../../components/ChampionCard";
+import { Flex, Group, keyframes, TextInput } from "@mantine/core";
+import Champion from "../../components/ChampionCard";
 import { imageChampion, riotAPI } from "../../config/riotapi";
 import getNewName from "../../config/getName";
 import { useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import styled from "@emotion/styled";
+import Router from "next/router";
 
 export async function getStaticProps() {
   var championsStorage: IChampion[] = [];
@@ -23,7 +24,6 @@ export async function getStaticProps() {
       passive: null,
       skills: [],
     };
-
     championsStorage.push(newChamp);
   });
 
@@ -47,7 +47,7 @@ const Home = ({ data }: any) => {
       : (search = data);
 
   return (
-    <Group
+    <StyledGroup
       style={{ marginTop: "30px", display: "flex", flexDirection: "column" }}
       position="center"
       spacing="xl"
@@ -61,10 +61,10 @@ const Home = ({ data }: any) => {
       />
       <Flex gap="xl" justify="center" direction="row" wrap="wrap">
         {search.map((champion: any) => (
-          <Card key={champion.id} props={champion} />
+          <Champion key={champion.id} props={champion} />
         ))}
       </Flex>
-    </Group>
+    </StyledGroup>
   );
 };
 
@@ -98,4 +98,20 @@ const StyledInput = styled(TextInput)`
     font-style: italic;
     opacity: 0.8;
   }
+`;
+
+const appear = keyframes`
+0%{
+  opacity: 0;
+}
+80%{
+  opacity: 0;
+}
+100{
+  opacity 1;
+}
+`;
+
+const StyledGroup = styled(Group)`
+  animation: ${appear} 0.3s ease-in-out forwards;
 `;
