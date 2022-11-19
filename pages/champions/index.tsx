@@ -53,7 +53,11 @@ const Home = ({ data }: any) => {
         <title>Champions</title>
       </Head>
       <StyledGroup>
-        <StyledInput>
+        <StyledInput
+          initial={{ opacity: 0, translateX: 80 }}
+          animate={{ opacity: 1, translateX: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <BiSearchAlt2 size={20} fill="white" />
           <input
             placeholder="Search Champion"
