@@ -10,6 +10,7 @@ import {
   Text,
   TextProps,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import {
   riotAPI,
@@ -93,10 +94,12 @@ export async function getStaticPaths() {
 export default function Champion({ data }: any) {
   const [spellTitle, setSpellTitle] = useState("");
   const [spellDescription, setSpellDescription] = useState("");
+  const [showDescription, setShowDescription] = useState(false);
+  const [currentSpell, setCurrentSpell] = useState("");
   return (
     <>
       <Head>
-        <title>{data.name} </title>
+        <title>{data.name}</title>
       </Head>
       <SimpleGrid>
         <StyledButton
@@ -145,6 +148,7 @@ export default function Champion({ data }: any) {
                     <Group position="center" spacing="xl">
                       <StyledGroup
                         onClick={() => {
+                          setShowDescription(true);
                           setSpellDescription(data.passive.description);
                           setSpellTitle(data.passive.name + " (Passive): ");
                         }}
@@ -152,12 +156,23 @@ export default function Champion({ data }: any) {
                         animate={{ translateY: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.2 }}
                       >
-                        <StyledText>P</StyledText>
-                        <Skill props={data.passive} />
+                        <Tooltip
+                          label={data.passive.name}
+                          color="#b96400"
+                          position="top"
+                          withArrow
+                          arrowSize={10}
+                        >
+                          <div>
+                            <StyledText>P</StyledText>
+                            <Skill props={data.passive} />
+                          </div>
+                        </Tooltip>
                       </StyledGroup>
 
                       <StyledGroup
                         onClick={() => {
+                          setShowDescription(true);
                           setSpellDescription(data.skills[0].description);
                           setSpellTitle(data.skills[0].name + " (Q): ");
                         }}
@@ -165,12 +180,23 @@ export default function Champion({ data }: any) {
                         animate={{ translateY: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.3 }}
                       >
-                        <StyledText>Q</StyledText>
-                        <Skill props={data.skills[0]} />
+                        <Tooltip
+                          label={data.skills[0].name}
+                          color="#b96400"
+                          position="top"
+                          withArrow
+                          arrowSize={10}
+                        >
+                          <div>
+                            <StyledText>Q</StyledText>
+                            <Skill props={data.skills[0]} />
+                          </div>
+                        </Tooltip>
                       </StyledGroup>
 
                       <StyledGroup
                         onClick={() => {
+                          setShowDescription(true);
                           setSpellDescription(data.skills[1].description);
                           setSpellTitle(data.skills[1].name + " (W): ");
                         }}
@@ -178,12 +204,23 @@ export default function Champion({ data }: any) {
                         animate={{ translateY: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.4 }}
                       >
-                        <StyledText>W</StyledText>
-                        <Skill props={data.skills[1]} />
+                        <Tooltip
+                          label={data.skills[1].name}
+                          color="#b96400"
+                          position="top"
+                          withArrow
+                          arrowSize={10}
+                        >
+                          <div>
+                            <StyledText>W</StyledText>
+                            <Skill props={data.skills[1]} />
+                          </div>
+                        </Tooltip>
                       </StyledGroup>
 
                       <StyledGroup
                         onClick={() => {
+                          setShowDescription(true);
                           setSpellDescription(data.skills[2].description);
                           setSpellTitle(data.skills[2].name + " (E):");
                         }}
@@ -191,12 +228,23 @@ export default function Champion({ data }: any) {
                         animate={{ translateY: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.5 }}
                       >
-                        <StyledText>E</StyledText>
-                        <Skill props={data.skills[2]} />
+                        <Tooltip
+                          label={data.skills[2].name}
+                          color="#b96400"
+                          position="top"
+                          withArrow
+                          arrowSize={10}
+                        >
+                          <div>
+                            <StyledText>E</StyledText>
+                            <Skill props={data.skills[2]} />
+                          </div>
+                        </Tooltip>
                       </StyledGroup>
 
                       <StyledGroup
                         onClick={() => {
+                          setShowDescription(true);
                           setSpellDescription(data.skills[3].description);
                           setSpellTitle(data.skills[3].name + " (R):");
                         }}
@@ -204,32 +252,39 @@ export default function Champion({ data }: any) {
                         animate={{ translateY: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.6 }}
                       >
-                        <StyledText>R</StyledText>
-                        <Skill props={data.skills[3]} />
+                        <Tooltip
+                          label={data.skills[3].name}
+                          color="#b96400"
+                          position="top"
+                          withArrow
+                          arrowSize={10}
+                        >
+                          <div>
+                            <StyledText>R</StyledText>
+                            <Skill props={data.skills[3]} />
+                          </div>
+                        </Tooltip>
                       </StyledGroup>
                     </Group>
-                    <Group
-                      style={{
-                        gap: "0px",
-                        padding: "5px",
-                        flexDirection: "column",
-                        textAlign: "center",
-                      }}
-                    >
-                      <Title
-                        order={4}
-                        color="white"
-                        style={{
-                          textShadow: "1px 2px 2px black",
-                          fontFamily: "Friz-Regular",
-                        }}
+                    {showDescription && (
+                      <StyledSpell
+                        initial={{ opacity: 0, translateX: 320 }}
+                        animate={{ opacity: 1, translateX: 0 }}
+                        transition={{ duration: 0.5 }}
                       >
-                        {spellTitle}
-                      </Title>
-                      <SpellDescription color="#c6a756" weight={600}>
-                        {spellDescription}
-                      </SpellDescription>
-                    </Group>
+                        <Title
+                          order={4}
+                          color="white"
+                          style={{
+                            textShadow: "1px 2px 2px black",
+                            fontFamily: "Friz-Regular",
+                          }}
+                        >
+                          {spellTitle}
+                        </Title>
+                        <SpellDescription>{spellDescription}</SpellDescription>
+                      </StyledSpell>
+                    )}
                     <Title
                       order={2}
                       color="#c39031"
@@ -255,6 +310,13 @@ export default function Champion({ data }: any) {
     </>
   );
 }
+
+const StyledSpell = styled(motion.div)`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 const StyledCard = styled(motion.div)`
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -282,9 +344,11 @@ const _StyledText = styled(Text)`
 const StyledText = createPolymorphicComponent<"text", TextProps>(_StyledText);
 
 const _SpellDescription = styled(Text)`
-  color: #c6a756;
   text-shadow: 1px 1px 1px black;
   font-family: Friz-Regular;
+  color: #c6a756;
+  font-weight: 600;
+  padding-top: 8px;
 `;
 
 const SpellDescription = createPolymorphicComponent<"text", TextProps>(
