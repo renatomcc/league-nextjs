@@ -41,15 +41,13 @@ function AppContainer({ children }: any) {
             position: "relative",
           }}
         >
-          <a
+          <Link
             target="_blank"
             rel="noopener noreferrer"
             href="https://www.linkedin.com/in/renato-castro-b54b82249/"
           >
-            <ActionIcon color="blue" size="lg" radius="sm" variant="filled">
-              <SiLinkedin size={26} />
-            </ActionIcon>
-          </a>
+            <SiLinkedin size={30} fill='#0077b7' />
+          </Link>
           <Link href="/">
             <Image
               src="https://logosmarcas.net/wp-content/uploads/2020/11/League-of-Legends-Logo.png"
@@ -58,15 +56,13 @@ function AppContainer({ children }: any) {
               height={80}
             />
           </Link>
-          <a
+          <Link
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/renatomcc"
           >
-            <ActionIcon color="dark" size="lg" radius="xl" variant="filled">
-              <BsGithub size={26} />
-            </ActionIcon>
-          </a>
+            <BsGithub size={30} fill='white'/>
+          </Link>
         </Header>
       }
       footer={

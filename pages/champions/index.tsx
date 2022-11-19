@@ -53,13 +53,13 @@ const Home = ({ data }: any) => {
         <title>Champions</title>
       </Head>
       <StyledGroup>
-        <StyledInput
-          icon={<BiSearchAlt2 size={20} />}
-          placeholder="Search Champion"
-          onChange={(e) => {
-            setSerachChampions(e.target.value);
-          }}
-        />
+        <StyledInput>
+          <BiSearchAlt2 size={20} fill="white" />
+          <input
+            placeholder="Search Champion"
+            onChange={(e) => setSerachChampions(e.target.value)}
+          ></input>
+        </StyledInput>
         <StyledFlex>
           {search.map((champion: any, index) => (
             <motion.div
@@ -103,17 +103,23 @@ const StyledGroup = styled(motion.div)`
   gap: 20px;
 `;
 
-const StyledInput = styled(TextInput)`
-  border-radius: 5px;
+const StyledInput = styled(motion.div)`
+  background-color: #111111;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 5px;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  opacity: 0.75;
   input {
-    background-color: #111111;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
     color: white;
     font-family: Friz-Medium;
     font-size: 15px;
     font-style: italic;
-    opacity: 0.8;
+    outline: none;
   }
 `;
 
