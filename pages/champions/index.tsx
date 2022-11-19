@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import Head from "next/head";
 
 export async function getStaticProps() {
   var championsStorage: IChampion[] = [];
@@ -47,27 +48,32 @@ const Home = ({ data }: any) => {
       : (search = data);
 
   return (
-    <StyledGroup>
-      <StyledInput
-        icon={<BiSearchAlt2 size={20} />}
-        placeholder="Search Champion"
-        onChange={(e) => {
-          setSerachChampions(e.target.value);
-        }}
-      />
-      <StyledFlex>
-        {search.map((champion: any, index) => (
-          <motion.div
-            key={champion}
-            initial={{ opacity: 0, translateY: -20 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            transition={{ duration: 0.2, delay: index * 0.07 }}
-          >
-            <Champion key={champion.id} props={champion} />
-          </motion.div>
-        ))}
-      </StyledFlex>
-    </StyledGroup>
+    <>
+      <Head>
+        <title>Champions</title>
+      </Head>
+      <StyledGroup>
+        <StyledInput
+          icon={<BiSearchAlt2 size={20} />}
+          placeholder="Search Champion"
+          onChange={(e) => {
+            setSerachChampions(e.target.value);
+          }}
+        />
+        <StyledFlex>
+          {search.map((champion: any, index) => (
+            <motion.div
+              key={champion}
+              initial={{ opacity: 0, translateY: -20 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 0.2, delay: index * 0.07 }}
+            >
+              <Champion key={champion.id} props={champion} />
+            </motion.div>
+          ))}
+        </StyledFlex>
+      </StyledGroup>
+    </>
   );
 };
 

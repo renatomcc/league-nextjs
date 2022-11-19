@@ -25,6 +25,7 @@ import styled from "@emotion/styled";
 import Skill from "../../components/SkillCard";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Head from "next/head";
 
 export async function getStaticProps({ params }: any) {
   var Champion: IChampion;
@@ -93,160 +94,165 @@ export default function Champion({ data }: any) {
   const [spellTitle, setSpellTitle] = useState("");
   const [spellDescription, setSpellDescription] = useState("");
   return (
-    <SimpleGrid>
-      <StyledButton
-        variant="gradient"
-        gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
-        radius="md"
-        size="lg"
-        compact
-        component="a"
-        href="/champions"
-      >
-        Voltar
-      </StyledButton>
-      <MediaQuery
-        largerThan={1200}
-        styles={{ width: "1200px", height: "550px" }}
-      >
-        <StyledCard
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+    <>
+      <Head>
+        <title>{data.name} </title>
+      </Head>
+      <SimpleGrid>
+        <StyledButton
+          variant="gradient"
+          gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
+          radius="md"
+          size="lg"
+          compact
+          component="a"
+          href="/champions"
         >
-          <MediaQuery smallerThan={780} styles={{ flexWrap: "wrap" }}>
-            <StyledFlex>
-              <motion.div
-                initial={{ opacity: 0, translateX: -30 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-              >
-                <Image
-                  src={data.image}
-                  alt={data.name}
-                  width={250}
-                  height={465}
-                />
-              </motion.div>
-              <Card style={{ backgroundColor: "transparent" }}>
-                <SimpleGrid style={{ height: "100%" }}>
-                  <Title
-                    align="center"
-                    color="#c39031"
-                    style={{ fontFamily: "Friz-Regular" }}
-                  >
-                    {data.title}
-                  </Title>
-                  <Group position="center" spacing="xl">
-                    <StyledGroup
-                      onClick={() => {
-                        setSpellDescription(data.passive.description);
-                        setSpellTitle(data.passive.name + " (Passive): ");
-                      }}
-                      initial={{ translateY: -20, opacity: 0 }}
-                      animate={{ translateY: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.2 }}
-                    >
-                      <StyledText>P</StyledText>
-                      <Skill props={data.passive} />
-                    </StyledGroup>
-
-                    <StyledGroup
-                      onClick={() => {
-                        setSpellDescription(data.skills[0].description);
-                        setSpellTitle(data.skills[0].name + " (Q): ");
-                      }}
-                      initial={{ translateY: -20, opacity: 0 }}
-                      animate={{ translateY: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.3 }}
-                    >
-                      <StyledText>Q</StyledText>
-                      <Skill props={data.skills[0]} />
-                    </StyledGroup>
-
-                    <StyledGroup
-                      onClick={() => {
-                        setSpellDescription(data.skills[1].description);
-                        setSpellTitle(data.skills[1].name + " (W): ");
-                      }}
-                      initial={{ translateY: -20, opacity: 0 }}
-                      animate={{ translateY: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.4 }}
-                    >
-                      <StyledText>W</StyledText>
-                      <Skill props={data.skills[1]} />
-                    </StyledGroup>
-
-                    <StyledGroup
-                      onClick={() => {
-                        setSpellDescription(data.skills[2].description);
-                        setSpellTitle(data.skills[2].name + " (E):");
-                      }}
-                      initial={{ translateY: -20, opacity: 0 }}
-                      animate={{ translateY: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.5 }}
-                    >
-                      <StyledText>E</StyledText>
-                      <Skill props={data.skills[2]} />
-                    </StyledGroup>
-
-                    <StyledGroup
-                      onClick={() => {
-                        setSpellDescription(data.skills[3].description);
-                        setSpellTitle(data.skills[3].name + " (R):");
-                      }}
-                      initial={{ translateY: -20, opacity: 0 }}
-                      animate={{ translateY: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, delay: 0.6 }}
-                    >
-                      <StyledText>R</StyledText>
-                      <Skill props={data.skills[3]} />
-                    </StyledGroup>
-                  </Group>
-                  <Group
-                    style={{
-                      gap: "0px",
-                      padding: "5px",
-                      flexDirection: "column",
-                      textAlign: "center",
-                    }}
-                  >
+          Voltar
+        </StyledButton>
+        <MediaQuery
+          largerThan={1200}
+          styles={{ width: "1200px", height: "550px" }}
+        >
+          <StyledCard
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <MediaQuery smallerThan={780} styles={{ flexWrap: "wrap" }}>
+              <StyledFlex>
+                <motion.div
+                  initial={{ opacity: 0, translateX: -30 }}
+                  animate={{ opacity: 1, translateX: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                >
+                  <Image
+                    src={data.image}
+                    alt={data.name}
+                    width={250}
+                    height={465}
+                  />
+                </motion.div>
+                <Card style={{ backgroundColor: "transparent" }}>
+                  <SimpleGrid style={{ height: "100%" }}>
                     <Title
-                      order={4}
-                      color="white"
+                      align="center"
+                      color="#c39031"
+                      style={{ fontFamily: "Friz-Regular" }}
+                    >
+                      {data.title}
+                    </Title>
+                    <Group position="center" spacing="xl">
+                      <StyledGroup
+                        onClick={() => {
+                          setSpellDescription(data.passive.description);
+                          setSpellTitle(data.passive.name + " (Passive): ");
+                        }}
+                        initial={{ translateY: -20, opacity: 0 }}
+                        animate={{ translateY: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                      >
+                        <StyledText>P</StyledText>
+                        <Skill props={data.passive} />
+                      </StyledGroup>
+
+                      <StyledGroup
+                        onClick={() => {
+                          setSpellDescription(data.skills[0].description);
+                          setSpellTitle(data.skills[0].name + " (Q): ");
+                        }}
+                        initial={{ translateY: -20, opacity: 0 }}
+                        animate={{ translateY: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.3 }}
+                      >
+                        <StyledText>Q</StyledText>
+                        <Skill props={data.skills[0]} />
+                      </StyledGroup>
+
+                      <StyledGroup
+                        onClick={() => {
+                          setSpellDescription(data.skills[1].description);
+                          setSpellTitle(data.skills[1].name + " (W): ");
+                        }}
+                        initial={{ translateY: -20, opacity: 0 }}
+                        animate={{ translateY: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.4 }}
+                      >
+                        <StyledText>W</StyledText>
+                        <Skill props={data.skills[1]} />
+                      </StyledGroup>
+
+                      <StyledGroup
+                        onClick={() => {
+                          setSpellDescription(data.skills[2].description);
+                          setSpellTitle(data.skills[2].name + " (E):");
+                        }}
+                        initial={{ translateY: -20, opacity: 0 }}
+                        animate={{ translateY: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.5 }}
+                      >
+                        <StyledText>E</StyledText>
+                        <Skill props={data.skills[2]} />
+                      </StyledGroup>
+
+                      <StyledGroup
+                        onClick={() => {
+                          setSpellDescription(data.skills[3].description);
+                          setSpellTitle(data.skills[3].name + " (R):");
+                        }}
+                        initial={{ translateY: -20, opacity: 0 }}
+                        animate={{ translateY: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.6 }}
+                      >
+                        <StyledText>R</StyledText>
+                        <Skill props={data.skills[3]} />
+                      </StyledGroup>
+                    </Group>
+                    <Group
                       style={{
-                        textShadow: "1px 2px 2px black",
-                        fontFamily: "Friz-Regular",
+                        gap: "0px",
+                        padding: "5px",
+                        flexDirection: "column",
+                        textAlign: "center",
                       }}
                     >
-                      {spellTitle}
+                      <Title
+                        order={4}
+                        color="white"
+                        style={{
+                          textShadow: "1px 2px 2px black",
+                          fontFamily: "Friz-Regular",
+                        }}
+                      >
+                        {spellTitle}
+                      </Title>
+                      <SpellDescription color="#c6a756" weight={600}>
+                        {spellDescription}
+                      </SpellDescription>
+                    </Group>
+                    <Title
+                      order={2}
+                      color="#c39031"
+                      style={{ fontFamily: "Friz-Regular" }}
+                    >
+                      Lore:
                     </Title>
-                    <SpellDescription color="#c6a756" weight={600}>
-                      {spellDescription}
-                    </SpellDescription>
-                  </Group>
-                  <Title
-                    order={2}
-                    color="#c39031"
-                    style={{ fontFamily: "Friz-Regular" }}
-                  >
-                    Lore:
-                  </Title>
-                  <Text
-                    weight={500}
-                    align="justify"
-                    color="#c39031"
-                    style={{ fontFamily: "Friz-Regular" }}
-                  >
-                    {data.description}
-                  </Text>
-                </SimpleGrid>
-              </Card>
-            </StyledFlex>
-          </MediaQuery>
-        </StyledCard>
-      </MediaQuery>
-    </SimpleGrid>
+                    <Text
+                      weight={500}
+                      align="justify"
+                      color="#c39031"
+                      style={{ fontFamily: "Friz-Regular" }}
+                    >
+                      {data.description}
+                    </Text>
+                  </SimpleGrid>
+                </Card>
+              </StyledFlex>
+            </MediaQuery>
+          </StyledCard>
+        </MediaQuery>
+      </SimpleGrid>
+    </>
   );
 }
 
