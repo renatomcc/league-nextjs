@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
@@ -24,58 +25,71 @@ const Home = () => {
         ></meta>
       </Head>
       <MediaQuery largerThan={400} styles={{ paddingTop: "120px" }}>
-        <StyledFlex>
-          <StyledText> Welcome to my application </StyledText>
-          <StyledText>
-            This is a list of Champions of the game League of Legends created
-            with
-            <Link
-              href="https://nextjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
+        <motion.div
+          initial={{ opacity: 0, translateY: -30 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ duration: 0.6 }}
+          exit={{ opacity: 0 }}
+        >
+          <StyledFlex>
+            <StyledText> Welcome to my application </StyledText>
+            <StyledText>
+              This is a list of Champions of the game League of Legends created
+              with
+              <Link
+                href="https://nextjs.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                <b style={{ color: "#812af8" }}> Next JS</b>
+              </Link>
+              ,
+              <Link
+                href="https://mantine.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                <b style={{ color: "#339af0" }}> Mantine </b>
+              </Link>
+              and
+              <Link
+                href="https://styled-components.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                <b style={{ color: "#fbb26d" }}> Styled Components</b>
+              </Link>
+              <br />
+              Using the
+              <Link
+                href="https://developer.riotgames.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "red" }}
+              >
+                &nbsp;Riot Games API
+              </Link>
+            </StyledText>
+            <motion.div
+              initial={{ opacity: 0, translateX: 50 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <b style={{ color: "#812af8" }}> Next JS</b>
-            </Link>
-            ,
-            <Link
-              href="https://mantine.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
-            >
-              <b style={{ color: "#339af0" }}> Mantine </b>
-            </Link>
-            and
-            <Link
-              href="https://styled-components.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
-            >
-              <b style={{ color: "#fbb26d" }}> Styled Components</b>
-            </Link>
-            <br />
-            Using the
-            <Link
-              href="https://developer.riotgames.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none", color: "red" }}
-            >
-              &nbsp;Riot Games API
-            </Link>
-          </StyledText>
-          <StyledButton
-            variant="gradient"
-            gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
-            size="lg"
-            component="a"
-            href="/champions"
-          >
-            See Champions
-          </StyledButton>
-        </StyledFlex>
+              <StyledButton
+                variant="gradient"
+                gradient={{ from: "#84320b", to: "#d6951b", deg: 1 }}
+                size="lg"
+                component="a"
+                href="/champions"
+              >
+                See Champions
+              </StyledButton>
+            </motion.div>
+          </StyledFlex>
+        </motion.div>
       </MediaQuery>
     </>
   );

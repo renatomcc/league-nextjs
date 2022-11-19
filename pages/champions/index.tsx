@@ -5,7 +5,7 @@ import getNewName from "../../config/getName";
 import { useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import styled from "@emotion/styled";
-import Router from "next/router";
+import { motion } from "framer-motion";
 
 export async function getStaticProps() {
   var championsStorage: IChampion[] = [];
@@ -47,11 +47,7 @@ const Home = ({ data }: any) => {
       : (search = data);
 
   return (
-    <StyledGroup
-      style={{ marginTop: "30px", display: "flex", flexDirection: "column" }}
-      position="center"
-      spacing="xl"
-    >
+    <StyledGroup>
       <StyledInput
         icon={<BiSearchAlt2 size={20} />}
         placeholder="Search Champion"
@@ -59,11 +55,18 @@ const Home = ({ data }: any) => {
           setSerachChampions(e.target.value);
         }}
       />
-      <Flex gap="xl" justify="center" direction="row" wrap="wrap">
-        {search.map((champion: any) => (
-          <Champion key={champion.id} props={champion} />
+      <StyledFlex>
+        {search.map((champion: any, index) => (
+          <motion.div
+            key={champion}
+            initial={{ opacity: 0, translateY: -20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.2, delay: index * 0.07 }}
+          >
+            <Champion key={champion.id} props={champion} />
+          </motion.div>
         ))}
-      </Flex>
+      </StyledFlex>
     </StyledGroup>
   );
 };
@@ -86,6 +89,14 @@ export interface ISkill {
 
 export default Home;
 
+const StyledGroup = styled(motion.div)`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+`;
+
 const StyledInput = styled(TextInput)`
   border-radius: 5px;
   input {
@@ -100,18 +111,9 @@ const StyledInput = styled(TextInput)`
   }
 `;
 
-const appear = keyframes`
-0%{
-  opacity: 0;
-}
-80%{
-  opacity: 0;
-}
-100{
-  opacity 1;
-}
-`;
-
-const StyledGroup = styled(Group)`
-  animation: ${appear} 0.3s ease-in-out forwards;
+const StyledFlex = styled(motion.div)`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
 `;

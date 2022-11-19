@@ -3,7 +3,6 @@ import {
   Button,
   ButtonProps,
   createPolymorphicComponent,
-  keyframes,
 } from "@mantine/core";
 import { FallbackImage } from "./FallbackImage";
 

@@ -5,7 +5,6 @@ import {
   createPolymorphicComponent,
   Flex,
   Group,
-  keyframes,
   MediaQuery,
   SimpleGrid,
   Text,
@@ -25,7 +24,7 @@ import getNewName from "../../config/getName";
 import styled from "@emotion/styled";
 import Skill from "../../components/SkillCard";
 import { useState } from "react";
-import { Router } from "next/router";
+import { motion } from "framer-motion";
 
 export async function getStaticProps({ params }: any) {
   var Champion: IChampion;
@@ -93,22 +92,6 @@ export async function getStaticPaths() {
 export default function Champion({ data }: any) {
   const [spellTitle, setSpellTitle] = useState("");
   const [spellDescription, setSpellDescription] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  Router.events.on("routeChangeStart", () => {
-    console.log("loading...");
-    setLoading(true);
-  });
-
-  Router.events.on("routeChangeComplete", () => {
-    console.log("loading done");
-    setLoading(false);
-  });
-
-  Router.events.on("hashChangeComplete", () => {
-    console.log("a");
-  });
-
   return (
     <SimpleGrid>
       <StyledButton
@@ -126,18 +109,25 @@ export default function Champion({ data }: any) {
         largerThan={1200}
         styles={{ width: "1200px", height: "550px" }}
       >
-        <Card
-          withBorder
-          style={{ backgroundColor: "rgba(0,0,0,0.65)", border: "black" }}
+        <StyledCard
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
         >
           <MediaQuery smallerThan={780} styles={{ flexWrap: "wrap" }}>
             <StyledFlex>
-              <Image
-                src={data.image}
-                alt={data.name}
-                width={250}
-                height={465}
-              />
+              <motion.div
+                initial={{ opacity: 0, translateX: -30 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+              >
+                <Image
+                  src={data.image}
+                  alt={data.name}
+                  width={250}
+                  height={465}
+                />
+              </motion.div>
               <Card style={{ backgroundColor: "transparent" }}>
                 <SimpleGrid style={{ height: "100%" }}>
                   <Title
@@ -153,6 +143,9 @@ export default function Champion({ data }: any) {
                         setSpellDescription(data.passive.description);
                         setSpellTitle(data.passive.name + " (Passive): ");
                       }}
+                      initial={{ translateY: -20, opacity: 0 }}
+                      animate={{ translateY: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
                     >
                       <StyledText>P</StyledText>
                       <Skill props={data.passive} />
@@ -163,6 +156,9 @@ export default function Champion({ data }: any) {
                         setSpellDescription(data.skills[0].description);
                         setSpellTitle(data.skills[0].name + " (Q): ");
                       }}
+                      initial={{ translateY: -20, opacity: 0 }}
+                      animate={{ translateY: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.3 }}
                     >
                       <StyledText>Q</StyledText>
                       <Skill props={data.skills[0]} />
@@ -173,6 +169,9 @@ export default function Champion({ data }: any) {
                         setSpellDescription(data.skills[1].description);
                         setSpellTitle(data.skills[1].name + " (W): ");
                       }}
+                      initial={{ translateY: -20, opacity: 0 }}
+                      animate={{ translateY: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.4 }}
                     >
                       <StyledText>W</StyledText>
                       <Skill props={data.skills[1]} />
@@ -183,6 +182,9 @@ export default function Champion({ data }: any) {
                         setSpellDescription(data.skills[2].description);
                         setSpellTitle(data.skills[2].name + " (E):");
                       }}
+                      initial={{ translateY: -20, opacity: 0 }}
+                      animate={{ translateY: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.5 }}
                     >
                       <StyledText>E</StyledText>
                       <Skill props={data.skills[2]} />
@@ -193,6 +195,9 @@ export default function Champion({ data }: any) {
                         setSpellDescription(data.skills[3].description);
                         setSpellTitle(data.skills[3].name + " (R):");
                       }}
+                      initial={{ translateY: -20, opacity: 0 }}
+                      animate={{ translateY: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.6 }}
                     >
                       <StyledText>R</StyledText>
                       <Skill props={data.skills[3]} />
@@ -239,11 +244,19 @@ export default function Champion({ data }: any) {
               </Card>
             </StyledFlex>
           </MediaQuery>
-        </Card>
+        </StyledCard>
       </MediaQuery>
     </SimpleGrid>
   );
 }
+
+const StyledCard = styled(motion.div)`
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.65);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+`;
 
 const StyledFlex = styled(Flex)`
   gap: 20px;
@@ -272,10 +285,11 @@ const SpellDescription = createPolymorphicComponent<"text", TextProps>(
   _SpellDescription
 );
 
-const StyledGroup = styled(Group)`
+const StyledGroup = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0px;
+  text-align: center;
 `;
 
 const _StyledButton = styled(Button)`

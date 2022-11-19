@@ -4,13 +4,31 @@ import getNewName from "../config/getName";
 import Image from "next/image";
 import Link from "next/link";
 import { getClasses } from "../config/getClasses";
+import { motion } from "framer-motion";
+
+const easing = [0.6, -0.05, 0.01, 0.99];
+
+const fadeInUp = {
+  initial: {
+    y: 60,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: easing,
+    },
+  },
+};
 
 export function Champion(props: any) {
   let newName = getNewName(props.props.name);
   return (
-    <>
+    <motion.div variants={fadeInUp}>
       <Link href={`/champions/${newName}`} style={{ textDecoration: "none" }}>
-        <StyledCard>
+        <StyledCard exit={{ opacity: 0 }} whileHover={{ scale: 1.05 }}>
           <Image
             src={props.props.image}
             height={450}
@@ -69,11 +87,11 @@ export function Champion(props: any) {
           </StyledGroup>
         </StyledCard>
       </Link>
-    </>
+    </motion.div>
   );
 }
 
-const StyledCard = styled.div`
+const StyledCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,7 +105,7 @@ const StyledCard = styled.div`
   transition: all linear 0.2s;
   &:hover .spells {
     transform: translateY(-60px);
-    transition: all linear 0.2s;
+    transition: all linear 0.3s;
   }
 `;
 
@@ -95,7 +113,7 @@ const StyledGroup = styled(Group)`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: all linear 0.4s;
+  transition: all linear 0.5s;
   background-color: black;
   width: 100%;
   box-shadow: 0px -5px 5px #000;
