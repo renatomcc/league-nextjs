@@ -110,7 +110,7 @@ const StyledText = styled.div`
   text-align: center;
 `;
 
-const _StyledButton = styled(Button)`
+export const _StyledButton = styled(Button)`
   color: #ffdbc0;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
   font-family: Friz-Regular;
@@ -122,7 +122,7 @@ const _StyledButton = styled(Button)`
   }
 `;
 
-const StyledButton = createPolymorphicComponent<"button", ButtonProps>(
+export const StyledButton = createPolymorphicComponent<"button", ButtonProps>(
   _StyledButton
 );
 
