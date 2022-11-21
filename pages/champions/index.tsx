@@ -1,4 +1,3 @@
-import { Flex, Group, keyframes, TextInput } from "@mantine/core";
 import Champion from "../../components/ChampionCard";
 import { imageChampion, riotAPI } from "../../config/riotapi";
 import getNewName from "../../config/getName";
