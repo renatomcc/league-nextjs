@@ -13,7 +13,6 @@ export function Skill(props: any) {
         <FallbackImage
           src={props.props.image}
           alt={props.props.name}
-          title={props.props.name}
         />
       </StyledButton>
     </>
