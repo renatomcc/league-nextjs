@@ -13,7 +13,7 @@ function NotFound() {
       </Text>
       <Group>
         <Image
-          src="/../public/images/404.png"
+          src="https://i.ibb.co/smbwSZ5/404.png"
           alt="Error"
           priority
           style={{
